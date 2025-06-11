@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WiFi无线感知 - 优势与劣势 (并排对齐)</title>
+    <style>
+        body {
+            font-family: 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans SC', 'Microsoft YaHei', '微软雅黑', sans-serif;
+            margin: 0;
+            padding: 30px;
+            background-color: #FAF8F4; /* 避免与内部背景冲突的中性色 */
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            color: #2c3e50;
+        }
+        .slide-container {
+            background: #FCEFE3; /* 大框背景 */
+            padding: 40px 50px;
+            border: 1px solid #dce4ec;
+            width: 1000px;
+            max-width: 98%;
+            box-shadow: 0 15px 40px rgba(30, 60, 90, 0.1), 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-radius: 24px;
+            text-align: center; /* Added to center inline-block children like main-title */
+        }
+        .main-title {
+            background-color: #FCEFE3; /* 标题背景与大框背景一致 */
+            text-align: center;
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 45px;
+            color: #16a085;
+            letter-spacing: 0.5px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.03);
+            display: inline-block;
+            padding: 16px 24px;
+            border-radius: 16px;
+        }
+        .content-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            text-align: left; /* Reset text-align for content section if needed */
+        }
+        .panel {
+            padding: 30px 35px;
+            border-radius: 18px;
+            box-shadow: 0 8px 20px rgba(50, 80, 110, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%; /* Make panel take full height of its parent grid item */
+            box-sizing: border-box; /* Include padding and border in the element's total width and height */
+        }
+        .panel:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 30px rgba(50, 80, 110, 0.2);
+        }
+        /* 优势、劣势分别使用淡蓝色、淡红色背景 */
+        .advantages .panel {
+            background-color: #EAF7FE;
+        }
+        .disadvantages .panel {
+            background-color: #FDECEC;
+        }
+        .panel h3 {
+            margin-top: 0;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #dde4ed;
+            padding-bottom: 15px;
+            display: flex;
+            align-items: center;
+            letter-spacing: 0.2px;
+        }
+        .advantages h3 { color: #27ae60; }
+        .disadvantages h3 { color: #c0392b; }
+        .panel ul {
+            list-style-type: none;
+            padding-left: 5px;
+            margin-bottom: 0;
+            font-size: 16px;
+            line-height: 1.85;
+            color: #4a5c6e;
+            flex-grow: 1;
+        }
+        .panel ul li {
+            margin-bottom: 18px;
+            padding-left: 32px;
+            position: relative;
+        }
+        /* Style for the strong tag to align subsequent text */
+        .panel ul li strong {
+            display: inline-block;
+            width: 160px; /* Adjusted width for the longest label, ensures alignment */
+            vertical-align: top; /* Aligns the label with the top of the following text */
+        }
+        /* 优势用“✓”符号 */
+        .advantages ul li::before {
+            content: "✓";
+            color: white;
+            background-color: #27ae60;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            top: 3px; /* Adjusted for circle vertical alignment */
+            font-size: 14px; /* Symbol size inside circle */
+            width: 22px; /* Circle width */
+            height: 22px; /* Circle height */
+            border-radius: 50%; /* Make it a circle */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        /* 劣势用“×”符号 */
+        .disadvantages ul li::before {
+            content: "×";
+            color: white;
+            background-color: #c0392b;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            top: 3px; /* Adjusted for circle vertical alignment */
+            font-size: 14px; /* Symbol size inside circle */
+            width: 22px; /* Circle width */
+            height: 22px; /* Circle height */
+            border-radius: 50%; /* Make it a circle */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .icon {
+            font-size: 24px;
+            margin-left: 15px;
+            opacity: 0.85;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="main-title">WiFi无线感知</div>
+        <div class="content-section">
+            <div class="advantages">
+                <div class="panel">
+                    <h3>优势：物理世界的“感知者” <span class="icon">&#128246;</span></h3>
+                    <ul>
+                        <li><strong>物理世界感知能力：</strong>WiFi无线感知能够实时捕获物理世界的细粒度和粗粒度变化信息，提供准确的环境状态数据。</li>
+                        <li><strong>信号特征稳定性：</strong>强周期信号在频率谱上呈现明显峰值特征，具有良好的可识别性和重现性表现。</li>
+                        <li><strong>部署成本经济性：</strong>利用现有WiFi设备实现感知功能，无需额外硬件投入，适合大规模家庭应用场景推广。</li>
+                        <li><strong>隐私保护优势：</strong>采用非侵入式检测方式，无需摄像头监控或穿戴设备，有效保护用户个人隐私安全。</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="disadvantages">
+                <div class="panel">
+                    <h3>劣势：原始数据的解读挑战 <span class="icon">&#128683;</span></h3>
+                    <ul>
+                        <li><strong>环境依赖局限性：</strong>严重依赖于特定的实验场景和环境配置，在复杂多变环境下泛化能力明显不足。</li>
+                        <li><strong>分类准确性限制：</strong>对特定任务进行准确分类的能力有限，容易受到环境干扰和设备变化的影响。</li>
+                        <li><strong>技术门槛要求高：</strong>信号数据解释需要专业技术知识，特征提取和模式识别的实现难度相对较大。</li>
+                        <li><strong>应用场景局限性：</strong>主要适用于室内环境的特定感知任务，应用范围相对狭窄且扩展性有限。</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
