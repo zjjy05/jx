@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WiFi无线感知 + 大语言模型融合系统</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', 'SimHei', Arial, sans-serif;
+            background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .slide {
+            width: 1280px;
+            height: 720px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .header h2 {
+            font-size: 18px;
+            font-weight: 300;
+            opacity: 0.95;
+        }
+
+        .content {
+            flex: 1;
+            display: flex;
+            padding: 20px;
+            gap: 15px;
+        }
+
+        .left-panel, .right-panel {
+            width: 32%;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        /* WiFi无线感知 - 完全统一的蓝色 */
+        .left-panel {
+            background: #dbeafe;
+            border: 2px solid #2563eb;
+        }
+
+        .left-panel .panel-title {
+            color: #1d4ed8;
+        }
+
+        .left-panel .advantage-item {
+            background: #f0f9ff;
+            border: 1px solid #2563eb;
+        }
+
+        .left-panel .advantage-item strong {
+            color: #1d4ed8;
+        }
+
+        .left-panel .advantage-item li {
+            color: #1d4ed8;
+        }
+
+        .left-panel .advantage-item li:before {
+            color: #2563eb;
+        }
+
+        /* 特殊强调项也保持同样的蓝色 */
+        .physical-insight {
+            background: #eff6ff !important;
+            border: 2px solid #2563eb !important;
+        }
+
+        .physical-insight strong {
+            color: #1d4ed8 !important;
+        }
+
+        .physical-insight li {
+            color: #1d4ed8 !important;
+        }
+
+        .physical-insight li:before {
+            color: #2563eb !important;
+        }
+
+        /* 大语言模型 - 完全统一的橙色 */
+        .right-panel {
+            background: #fed7aa;
+            border: 2px solid #ea580c;
+        }
+
+        .right-panel .panel-title {
+            color: #c2410c;
+        }
+
+        .right-panel .advantage-item {
+            background: #fff7ed;
+            border: 1px solid #ea580c;
+        }
+
+        .right-panel .advantage-item strong {
+            color: #c2410c;
+        }
+
+        .right-panel .advantage-item li {
+            color: #c2410c;
+        }
+
+        .right-panel .advantage-item li:before {
+            color: #ea580c;
+        }
+
+        /* 特殊强调项也保持同样的橙色 */
+        .mathematical-analysis {
+            background: #fff7ed !important;
+            border: 2px solid #ea580c !important;
+        }
+
+        .mathematical-analysis strong {
+            color: #c2410c !important;
+        }
+
+        .mathematical-analysis li {
+            color: #c2410c !important;
+        }
+
+        .mathematical-analysis li:before {
+            color: #ea580c !important;
+        }
+
+        /* 轻量化部署也改为橙色系，保持一致 */
+        .new-feature {
+            background: #fff7ed !important;
+            border: 2px solid #ea580c !important;
+        }
+
+        .new-feature strong {
+            color: #c2410c !important;
+        }
+
+        .new-feature li {
+            color: #c2410c !important;
+        }
+
+        .new-feature li:before {
+            color: #ea580c !important;
+        }
+
+        /* 融合架构 - 完全统一的紫色 */
+        .center-panel {
+            width: 36%;
+            background: #e9d5ff;
+            border: 2px solid #8b5cf6;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .center-panel .panel-title {
+            color: #7c2d92;
+        }
+
+        .panel-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .advantage-item {
+            margin-bottom: 8px;
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            line-height: 1.3;
+            transition: transform 0.2s ease;
+        }
+
+        .advantage-item:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .advantage-item strong {
+            display: block;
+            margin-bottom: 3px;
+            font-size: 12px;
+        }
+
+        .advantage-item ul {
+            list-style: none;
+            margin-left: 8px;
+        }
+
+        .advantage-item li:before {
+            content: "• ";
+        }
+
+        .architecture-step {
+            margin: 8px 0;
+            padding: 8px;
+            background: #faf5ff;
+            border-radius: 8px;
+            font-size: 11px;
+            border: 1px solid #8b5cf6;
+        }
+
+        .device-box, .model-box {
+            border: 2px solid #8b5cf6;
+            padding: 6px;
+            border-radius: 6px;
+            margin: 6px 0;
+            font-size: 10px;
+            font-weight: 500;
+            background: #f3e8ff;
+            color: #7c2d92;
+        }
+
+        .result-box {
+            padding: 8px;
+            background: #f3e8ff;
+            border-radius: 8px;
+            border: 2px solid #8b5cf6;
+            font-size: 11px;
+            margin-top: 8px;
+            color: #7c2d92;
+        }
+
+        .arrow {
+            font-size: 16px;
+            margin: 5px 0;
+            color: #8b5cf6;
+        }
+
+        .fusion-symbol {
+            font-size: 14px;
+            color: #8b5cf6;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+
+        .highlight-text {
+            color: #7c2d92;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        /* 核心创新 - 完全统一的黄色 */
+        .core-innovation {
+            background: #fef3c7;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 20px;
+            border: 2px solid #f59e0b;
+            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.2);
+        }
+
+        .core-innovation-title {
+            color: #d97706;
+            font-size: 16px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-weight: bold;
+        }
+
+        .innovation-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .innovation-item {
+            background: #fffbeb;
+            padding: 12px;
+            border-radius: 8px;
+            border: 2px solid #f59e0b;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .innovation-item h4 {
+            color: #d97706;
+            margin-bottom: 5px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .innovation-item p {
+            color: #92400e;
+            font-size: 10px;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 1400px) {
+            .slide {
+                width: 95vw;
+                height: 95vh;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <!-- 标题 -->
+        <div class="header">
+            <h1>WiFi无线感知 + 大语言模型融合系统</h1>
+            <h2>优势互补的智能感知解决方案</h2>
+        </div>
+
+        <!-- 主要内容 -->
+        <div class="content">
+            <!-- 左侧：WiFi优势 - 纯蓝色系 -->
+            <div class="left-panel">
+                <div class="panel-title">
+                    <span>🌐</span>
+                    <span>WiFi无线感知</span>
+                </div>
+
+                <div class="advantage-item physical-insight">
+                    <strong>🔬 物理层信息获取</strong>
+                    <ul>
+                        <li>WiFi-CSI提供物理世界数据</li>
+                        <li>使LLM具备物理理解能力</li>
+                    </ul>
+                </div>
+
+                <div class="advantage-item">
+                    <strong>📡 实时环境感知</strong>
+                    <ul>
+                        <li>细粒度变化信息捕获</li>
+                        <li>准确空间感知数据</li>
+                    </ul>
+                </div>
+
+                <div class="advantage-item">
+                    <strong>💰 低成本部署</strong>
+                    <ul>
+                        <li>复用现有WiFi设备</li>
+                        <li>大规模推广适用</li>
+                    </ul>
+                </div>
+
+                <div class="advantage-item">
+                    <strong>🔐 隐私保护</strong>
+                    <ul>
+                        <li>非侵入式检测</li>
+                        <li>无需视觉监控</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 中间：架构 - 纯紫色系 -->
+            <div class="center-panel">
+                <div class="panel-title">
+                    <span>🔗</span>
+                    <span>融合架构</span>
+                </div>
+
+                <div class="architecture-step">
+                    <strong>WiFi-CSI物理信息</strong>
+                    <div class="arrow">↓</div>
+                    <div class="device-box">
+                        <strong>ESP32设备</strong>
+                    </div>
+                </div>
+
+                <div class="architecture-step">
+                    <div class="fusion-symbol">⊕ 特征融合 ⊕</div>
+                    <div class="arrow">↓</div>
+                    <div class="model-box">
+                        <strong>轻量化LLM</strong><br>
+                        <span class="highlight-text">科学分析·透明推理</span>
+                    </div>
+                </div>
+
+                <div class="result-box">
+                    <strong>物理智能系统</strong>
+                </div>
+            </div>
+
+            <!-- 右侧：LLM优势 - 纯橙色系 -->
+            <div class="right-panel">
+                <div class="panel-title">
+                    <span>🧠</span>
+                    <span>大语言模型</span>
+                </div>
+
+                <div class="advantage-item mathematical-analysis">
+                    <strong>🔍 科学数学分析</strong>
+                    <ul>
+                        <li>WiFi-CSI数据精确分析</li>
+                        <li>知根知底推理过程</li>
+                    </ul>
+                </div>
+
+                <div class="advantage-item">
+                    <strong>💬 智能交互</strong>
+                    <ul>
+                        <li>自然语言理解</li>
+                        <li>零样本处理能力</li>
+                    </ul>
+                </div>
+
+                <div class="advantage-item">
+                    <strong>⚡ 推理泛化</strong>
+                    <ul>
+                        <li>思维链推理能力</li>
+                        <li>多任务适应性</li>
+                    </ul>
+                </div>
+
+                <div class="advantage-item new-feature">
+                    <strong>🔧 轻量化部署</strong>
+                    <ul>
+                        <li>基座模型蒸馏版本</li>
+                        <li>保持能力降低资源</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 底部核心创新 - 纯黄色系 -->
+        <div class="core-innovation">
+            <div class="core-innovation-title">
+                <span>💡</span>
+                <span>核心创新突破</span>
+            </div>
+
+            <div class="innovation-grid">
+                <div class="innovation-item">
+                    <h4>🌍 物理世界理解</h4>
+                    <p>WiFi-CSI物理层信息使大语言模型具备了真正理解物理世界的能力</p>
+                </div>
+
+                <div class="innovation-item">
+                    <h4>🔬 透明推理决策</h4>
+                    <p>对WiFi-CSI数据进行科学数学分析，具有知根知底的推理过程</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
